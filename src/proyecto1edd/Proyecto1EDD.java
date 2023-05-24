@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package proyecto1edd;
-
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import java.io.*;
 /**
  *
  * @author rodri
@@ -14,10 +16,11 @@ public class Proyecto1EDD {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Test1");
-        System.out.println("Test2");
-        System.out.println("Test3");
-    }
-    
+        Menu menu = new Menu();
+        menu.setLocationRelativeTo(null);
+        menu.setVisible(true);
+        
+}
+
+      
 }
