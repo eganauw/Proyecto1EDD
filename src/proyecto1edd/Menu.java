@@ -16,12 +16,16 @@ import javax.swing.JOptionPane;
  * @author rodri
  */
 public class Menu extends javax.swing.JFrame {
-
+    String texto;
+    int count;
     /**
      * Creates new form Menu
+     * @param texto
      */
     public Menu() {
         initComponents();
+        this.texto = "";
+        this.count =0;
     }
 
     /**
@@ -36,6 +40,8 @@ public class Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnCargar = new javax.swing.JButton();
+        btnAgregarUsuario = new javax.swing.JButton();
+        btnEliminarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -54,15 +60,32 @@ public class Menu extends javax.swing.JFrame {
                 btnCargarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, -1, -1));
+        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+
+        btnAgregarUsuario.setText("Agregar Usuario");
+        btnAgregarUsuario.setActionCommand("Agregar Usuario");
+        btnAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+
+        btnEliminarUsuario.setText("Eliminar Usuario");
+        btnEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
-        int count = 0;
-        String[] lines = cargardatos().split("\n");
+        cargardatos();
+        String[] lines = texto.split("\n");
         UsersList userslist = new UsersList();
         AdjList adjlist = new AdjList();
         for(int i =1; i<lines.length;i++){
@@ -128,9 +151,8 @@ public class Menu extends javax.swing.JFrame {
 }
          
     
-    public static String cargardatos() {
+    public String cargardatos() {
   String aux="";   
-  String texto="";
   try{
    JFileChooser file=new JFileChooser();
    file.showOpenDialog(file);
@@ -140,7 +162,7 @@ public class Menu extends javax.swing.JFrame {
       BufferedReader lee=new BufferedReader(archivos);
       while((aux=lee.readLine())!=null)
       {
-         texto+= aux+ "\n";
+         this.texto+= aux+ "\n";
       }
          lee.close();
     }    
@@ -150,10 +172,33 @@ public class Menu extends javax.swing.JFrame {
            "\nNo se ha encontrado el archivo",
                  "ADVERTENCIA!!!",JOptionPane.WARNING_MESSAGE);
     }
-  return texto;//El texto se almacena en el JTextArea
+  return this.texto;//El texto se almacena en el JTextArea
 
     }//GEN-LAST:event_btnCargarActionPerformed
 
+    
+    private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
+
+    private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
+        // TODO add your handling code here:
+       String usuarioaeliminar = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
+       String[] lines = texto.split("\n");
+       String nuevotexto ="";
+       for( int i = count; i<lines.length;i++){
+           String[] elements = lines[i].split(",");
+           for(int j =0;j<elements.length;j++){
+               if(elements[0].equals(usuarioaeliminar)||elements[1].equals(usuarioaeliminar)){
+                   this.texto = texto.replaceAll(lines[i], "");
+               }
+           }
+       }
+        System.out.println(texto);
+       
+       
+    }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -190,7 +235,9 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarUsuario;
     private javax.swing.JButton btnCargar;
+    private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
