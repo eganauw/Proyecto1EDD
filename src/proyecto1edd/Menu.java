@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class Menu extends javax.swing.JFrame {
     String texto;
     int count;
+    UsersList userslist;
     /**
      * Creates new form Menu
      * @param texto
@@ -94,7 +95,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         cargardatos();
         String[] lines = texto.split("\n");
-        UsersList userslist = new UsersList();
+        userslist = new UsersList();
         AdjList adjlist = new AdjList();
         for(int i =1; i<lines.length;i++){
             if(lines[i].equals("")){
@@ -190,9 +191,27 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
+    public boolean isNumeric(String usuarioaeliminar){
+	try {
+		Integer.parseInt(usuarioaeliminar);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+    }
+    
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
         // TODO add your handling code here:
-      String usuarioaeliminar = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
+       String usuarioaeliminar;
+       while (true){
+           usuarioaeliminar = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
+           if (isNumeric(usuarioaeliminar) == false || !userslist.isUser(usuarioaeliminar)){
+               JOptionPane.showMessageDialog(null,"Error, debe ingresar un numero correspondiente a un usuario.");
+               break;
+           }else{
+               break;
+           }
+       }
       String[] lines = texto.split("\n");
        for( int i = count; i<lines.length;i++){
            if(!lines[i].equals("Usuario eliminado")){
