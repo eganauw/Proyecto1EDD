@@ -42,6 +42,7 @@ public class Menu extends javax.swing.JFrame {
         btnCargar = new javax.swing.JButton();
         btnAgregarUsuario = new javax.swing.JButton();
         btnEliminarUsuario = new javax.swing.JButton();
+        btnAgregarUsuario1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,14 +63,13 @@ public class Menu extends javax.swing.JFrame {
         });
         getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
-        btnAgregarUsuario.setText("Agregar Usuario");
-        btnAgregarUsuario.setActionCommand("Agregar Usuario");
+        btnAgregarUsuario.setText("Salir");
         btnAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        getContentPane().add(btnAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
 
         btnEliminarUsuario.setText("Eliminar Usuario");
         btnEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +78,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+
+        btnAgregarUsuario1.setText("Agregar Usuario");
+        btnAgregarUsuario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarUsuario1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -179,25 +187,34 @@ public class Menu extends javax.swing.JFrame {
     
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
         // TODO add your handling code here:
        String usuarioaeliminar = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
        String[] lines = texto.split("\n");
-       String nuevotexto ="";
        for( int i = count; i<lines.length;i++){
+           if(lines[i].equals("")){
+               i++;
+           }
+           else{
            String[] elements = lines[i].split(",");
            for(int j =0;j<elements.length;j++){
-               if(elements[0].equals(usuarioaeliminar)||elements[1].equals(usuarioaeliminar)){
+               if(elements[0].equals(usuarioaeliminar)||elements[1].equals(" "+usuarioaeliminar)){
                    this.texto = texto.replaceAll(lines[i], "");
                }
+           }
            }
        }
         System.out.println(texto);
        
        
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
+
+    private void btnAgregarUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarUsuario1ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -236,6 +253,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarUsuario;
+    private javax.swing.JButton btnAgregarUsuario1;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JLabel jLabel1;
