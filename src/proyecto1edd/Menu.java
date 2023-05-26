@@ -192,20 +192,15 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
         // TODO add your handling code here:
-       String usuarioaeliminar = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
-       String[] lines = texto.split("\n");
+      String usuarioaeliminar = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
+      String[] lines = texto.split("\n");
        for( int i = count; i<lines.length;i++){
-           if(lines[i].equals("")){
-               i++;
-           }
-           else{
-           String[] elements = lines[i].split(",");
-           for(int j =0;j<elements.length;j++){
-               if(elements[0].equals(usuarioaeliminar)||elements[1].equals(" "+usuarioaeliminar)){
-                   this.texto = texto.replaceAll(lines[i], "");
+           if(!lines[i].equals("Usuario eliminado")){
+                String[] elements = lines[i].split(", ");
+               if(elements[0].equals(usuarioaeliminar)||elements[1].equals(usuarioaeliminar)){
+                   this.texto = texto.replaceAll(lines[i], "Usuario eliminado"); 
                }
-           }
-           }
+          }        
        }
         System.out.println(texto);
        
