@@ -94,23 +94,26 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
+        texto = "";
         cargardatos();
+        count =0;
         String[] lines = texto.split("\n");
         userslist = new UsersList();
         AdjList adjlist = new AdjList();
-        for(int i =1; i<lines.length;i++){
-            if(lines[i].equals("")){
-               count = i+2;
-               break;
+        for(int i =0; i<lines.length;i++){
+            if(lines[i].equals("Relaciones")){
+                count=i;
+                break;
             }
-            else{
+            if(!lines[i].equals("")&&!lines[i].equals("Usuarios")){
                String[] usuarios = lines[i].split(", ");
                int number = Integer.parseInt(usuarios[0]);
                String name = usuarios[1];
                userslist.insert(number, name);
             }
         }
-        for(int j = count;j<lines.length;j++){ 
+        for(int j = count+1;j<lines.length;j++){ 
+            if(!lines[j].equals("")){
                  User inicial = new User(0,"");
                  User usuariodestino = new User(0,"");
                  String[] relaciones = lines[j].split(", ");
@@ -155,11 +158,12 @@ public class Menu extends javax.swing.JFrame {
                           }
                 
                  }
-            
+            }
         }
         adjlist.print();
 }
-         
+    
+            
     
     public String cargardatos() {
   String aux="";   
@@ -222,8 +226,8 @@ public class Menu extends javax.swing.JFrame {
             }
         }
       }
-       for( int i = count; i<lines.length;i++){
-           if(!lines[i].equals("")){
+       for( int i = count+1; i<lines.length;i++){
+           if(!lines[i].equals("")&&!lines[i].equals("Relaciones")){
                 String[] elements = lines[i].split(", ");
                if(elements[0].equals(usuarioaeliminar)||elements[1].equals(usuarioaeliminar)){
                    this.texto = texto.replaceAll(lines[i], ""); 
