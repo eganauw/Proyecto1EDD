@@ -45,10 +45,11 @@ public class RelationsList {
         System.out.println(datos);
         }
     
+    public void eliminardestino(String usuarioaeliminar){
+        
+    }
 
-    /**
-     * @return the inicial
-     */
+   
     public User getInicial() {
         return inicial;
     }

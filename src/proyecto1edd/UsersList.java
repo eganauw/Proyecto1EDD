@@ -91,4 +91,18 @@ public class UsersList {
             }
         }
     }
+    
+    public boolean isUser(int usuarioaeliminar){
+        User pAux = pFirst;
+        int existe = 0;
+        while(pAux!=null){
+            if(pAux.number == usuarioaeliminar){
+                existe = 1;
+                break;
+            }else{
+                pAux = pAux.pnext;
+            }
+        }return existe ==1;
+    }
+    
 }

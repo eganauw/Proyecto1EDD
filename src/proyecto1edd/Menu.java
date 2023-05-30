@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import java.io.FileWriter;
 
 /**
  *
@@ -193,7 +194,7 @@ public class Menu extends javax.swing.JFrame {
 
     public boolean isNumeric(String usuarioaeliminar){
 	try {
-		Integer.parseInt(usuarioaeliminar);
+		Integer.valueOf(usuarioaeliminar);
 		return true;
 	} catch (NumberFormatException nfe){
 		return false;
@@ -205,7 +206,7 @@ public class Menu extends javax.swing.JFrame {
        String usuarioaeliminar;
        while (true){
            usuarioaeliminar = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
-           if (isNumeric(usuarioaeliminar) == false || !userslist.isUser(usuarioaeliminar)){
+           if (isNumeric(usuarioaeliminar) == false || !userslist.isUser(Integer.parseInt(usuarioaeliminar))){
                JOptionPane.showMessageDialog(null,"Error, debe ingresar un numero correspondiente a un usuario.");
                break;
            }else{
@@ -213,16 +214,33 @@ public class Menu extends javax.swing.JFrame {
            }
        }
       String[] lines = texto.split("\n");
+      for(int j =1;j<count;j++){
+        if(!lines[j].equals("")||!lines[j].equals("")){
+            String[] elements = lines[j].split(", ");
+            if(elements[0].equals(usuarioaeliminar)){
+                this.texto = texto.replaceAll(lines[j],"");
+            }
+        }
+      }
        for( int i = count; i<lines.length;i++){
-           if(!lines[i].equals("Usuario eliminado")){
+           if(!lines[i].equals("")){
                 String[] elements = lines[i].split(", ");
                if(elements[0].equals(usuarioaeliminar)||elements[1].equals(usuarioaeliminar)){
-                   this.texto = texto.replaceAll(lines[i], "Usuario eliminado"); 
+                   this.texto = texto.replaceAll(lines[i], ""); 
                }
-          }        
+          }
        }
         System.out.println(texto);
-       
+       try {
+      File myObj = new File("C:\\Users\\rodri\\Desktop\\Usuarios2.txt");
+      FileWriter myWriter = new FileWriter(myObj);
+      myWriter.write(texto);
+      myWriter.close();
+      JOptionPane.showMessageDialog(rootPane, "Usuario "+usuarioaeliminar+" eliminado correctamente");
+    } catch (IOException e) {
+      JOptionPane.showMessageDialog(rootPane, "Error");
+      e.printStackTrace();
+    }
        
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
