@@ -20,6 +20,8 @@ public class Menu extends javax.swing.JFrame {
     String texto;
     int count;
     UsersList userslist;
+    RelationsList relationslist;
+    AdjList adjlist;
     /**
      * Creates new form Menu
      * @param texto
@@ -45,6 +47,8 @@ public class Menu extends javax.swing.JFrame {
         btnAgregarUsuario = new javax.swing.JButton();
         btnEliminarUsuario = new javax.swing.JButton();
         btnAgregarUsuario1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -71,7 +75,7 @@ public class Menu extends javax.swing.JFrame {
                 btnAgregarUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
+        getContentPane().add(btnAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, -1));
 
         btnEliminarUsuario.setText("Eliminar Usuario");
         btnEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +93,12 @@ public class Menu extends javax.swing.JFrame {
         });
         getContentPane().add(btnAgregarUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 113, 300, 120));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -99,7 +109,7 @@ public class Menu extends javax.swing.JFrame {
         count =0;
         String[] lines = texto.split("\n");
         userslist = new UsersList();
-        AdjList adjlist = new AdjList();
+        adjlist = new AdjList();
         for(int i =0; i<lines.length;i++){
             if(lines[i].equals("Relaciones")){
                 count=i;
@@ -141,7 +151,7 @@ public class Menu extends javax.swing.JFrame {
                  }
                  if(adjlist.isEmpty()||!adjlist.existeinicial(idinicial)){
                          Destino destino = new Destino(usuariodestino,peso);
-                         RelationsList relationslist = new RelationsList(inicial,destino);
+                         relationslist = new RelationsList(inicial,destino);
                          adjlist.insert(relationslist);
                          
                  }
@@ -236,7 +246,7 @@ public class Menu extends javax.swing.JFrame {
        }
         System.out.println(texto);
        try {
-      File myObj = new File("C:\\Users\\rodri\\Desktop\\Usuarios2.txt");
+      File myObj = new File("C:\\Users\\rodri\\Desktop\\Usuarios.txt");
       FileWriter myWriter = new FileWriter(myObj);
       myWriter.write(texto);
       myWriter.close();
@@ -250,6 +260,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnAgregarUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuario1ActionPerformed
         // TODO add your handling code here:
+        MenuAgregar menuagregar = new MenuAgregar(texto,userslist,relationslist,adjlist);
+        menuagregar.setVisible(true);
+        menuagregar.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAgregarUsuario1ActionPerformed
     
     /**
@@ -294,5 +307,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
